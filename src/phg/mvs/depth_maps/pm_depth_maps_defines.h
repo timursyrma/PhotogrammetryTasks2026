@@ -7,12 +7,13 @@
 
 #define NITERATIONS                 5
 
-#define PROPAGATION_STEP            25
+#define PROPAGATION_STEP            5
 
 #define COST_PATCH_RADIUS           5
 
 #define COSTS_K_RATIO               1.2f
 #define COSTS_BEST_K_LIMIT          5
+#define PROPAGATION_DONORS_LIMIT    8
 
 #define VERBOSE_LOGGING
 #ifdef VERBOSE_LOGGING

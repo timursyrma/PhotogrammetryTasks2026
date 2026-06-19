@@ -31,6 +31,7 @@ public:
     {
         cameras_PtoWorld.resize(ncameras);
         cameras_RtoWorld.resize(ncameras);
+        cameras_O.resize(ncameras);
 
         rassert(cameras_imgs.size() == ncameras, 2815841251015);
         rassert(cameras_imgs_grey.size() == ncameras, 2815841251014);
@@ -46,6 +47,8 @@ public:
 
             cameras_PtoWorld[ci] = invP(cameras_PtoLocal[ci]);
             cameras_RtoWorld[ci] = extractR(cameras_PtoWorld[ci]);
+            matrix3d RtoLocal;
+            phg::decomposeUndistortedPMatrix(RtoLocal, cameras_O[ci], cameras_PtoLocal[ci]);
         }
     }
 
@@ -82,6 +85,7 @@ protected:
     const std::vector<matrix34d>& cameras_PtoLocal; // матрица переводящая глобальную систему координат мира в систему координат i-ой камеры (смотрящей по оси +Z)
     std::vector<matrix34d> cameras_PtoWorld; // матрица переводящая локальную систему координат i-ой камеры (смотрящей по оси +Z) в глобальную систему координат мира
     std::vector<matrix3d> cameras_RtoWorld; // матрица поворота из локальной системы координат i-ой камеры (смотрящей по оси +Z) в нлобальную систему координат мира
+    std::vector<vector3d> cameras_O; // центры i-ой камеры в глобальной системе координат
 
     const phg::Calibration& calibration;
 
