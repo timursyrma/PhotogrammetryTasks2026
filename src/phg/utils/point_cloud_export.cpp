@@ -11,6 +11,7 @@
 #include "opencv2/core/core.hpp"
 #include <fstream>
 #include <iomanip>
+#include <filesystem>
 
 
 namespace {
@@ -212,6 +213,8 @@ void phg::exportPointCloud(const std::vector<cv::Vec3d> &point_cloud, const std:
     if (!point_cloud_colors_bgr.empty() && point_cloud_colors_bgr.size() != point_cloud.size()) {
         throw std::runtime_error("!point_cloud_colors_bgr.empty() && point_cloud_colors_bgr.size() != point_cloud.size()");
     }
+
+    std::filesystem::create_directories(std::filesystem::path(path).parent_path());
 
     cv::Mat coords3d(1, point_cloud.size(), CV_32FC3);
     cv::Mat img(1, point_cloud.size(), CV_8UC3);
